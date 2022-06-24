@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CJS Import 1`] = `
+"{
+    \\"Cursor\\": {},
+    \\"Color\\": {
+        \\"bright\\": {},
+        \\"Names\\": {
+            \\"black\\": \\"black\\",
+            \\"red\\": \\"red\\",
+            \\"green\\": \\"green\\",
+            \\"yellow\\": \\"yellow\\",
+            \\"blue\\": \\"blue\\",
+            \\"magenta\\": \\"magenta\\",
+            \\"cyan\\": \\"cyan\\",
+            \\"white\\": \\"white\\",
+            \\"gray\\": \\"gray\\",
+            \\"grey\\": \\"grey\\"
+        }
+    },
+    \\"Modifiers\\": {},
+    \\"Interface\\": {
+        \\"enabled\\": true,
+        \\"visible\\": true
+    },
+    \\"C\\": {},
+    \\"Filters\\": {}
+}"
+`;
