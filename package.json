@@ -3,14 +3,15 @@
     "version": "1.6.32",
     "description": "ESLint Styling and Unit-Testing",
     "scripts": {
-        "setup": "npx tsc --init",
-        "lint": "npm run build && npx eslint .",
         "build": "tsc --build tsconfig.json",
-        "lintfix": "npx eslint --fix .",
+        "lint": "npm run build && npx eslint .",
+        "lint-fix": "npx eslint --fix .",
+        "lint-debug": "npm run build && npx eslint --debug .",
         "pretest": "npm run build",
-        "update-snapshots": "npm run build && node --experimental-vm-modules $(command -v jest) --config jest.config.js --injectGlobals --detectOpenHandles --update-snapshot",
+        "update-snapshots": "npm run build && node $(command -v jest) --config jest.config.js --injectGlobals --detectOpenHandles --update-snapshot",
         "prepublishOnly": "npm run test",
-        "test": "node --experimental-vm-modules $(command -v jest) --config jest.config.js --injectGlobals --detectOpenHandles"
+        "test": "node $(command -v jest) --config jest.config.js --injectGlobals --detectOpenHandles",
+        "ts-setup": "npx tsc --init"
     },
     "license": "BSD-3-Clause",
     "author": {
@@ -23,7 +24,7 @@
         "tag": "latest"
     },
     "devDependencies": {
-        "@iac-factory/eslint-settings": "^1.6.32",
+        "@iac-factory/eslint-settings": "^1.7.36",
         "@jest/globals": "^28.1.0",
         "@jest/types": "^28.1.0",
         "@types/jest": "^28.1.3",
