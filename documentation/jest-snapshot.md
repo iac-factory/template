@@ -1,4 +1,3 @@
-
 ### Snapshotting & Jest (Partial) ###
 
 > *Should snapshot files be committed?*
