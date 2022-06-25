@@ -7,7 +7,8 @@ describe( "ECMA", () => {
         expect.assertions(1);
 
         const main = await import("..");
-        const snapshot = JSON.stringify(main, null, 4);
+        const partial = { ... main, ... { Package: "[Redacted]" } };
+        const snapshot = JSON.stringify( partial, null, 4);
         const result = "Successful";
 
         const state: import("Unit-Testing").State = {
@@ -17,7 +18,6 @@ describe( "ECMA", () => {
         };
 
         expect.setState( state );
-
         expect(snapshot).toMatchSnapshot();
     } );
 });

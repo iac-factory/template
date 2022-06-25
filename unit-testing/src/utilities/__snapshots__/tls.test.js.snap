@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TLS-Module Export(s) 1`] = `
+Object {
+  "Clean": [Function],
+  "Setup": [Function],
+}
+`;

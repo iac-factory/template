@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Subprocess Spawn Class Output 1`] = `
+"[
+    \\"Unit Testing ...\\"
+]"
+`;
+
+exports[`Subprocess Spawn Class Usage 1`] = `
+"[
+    \\"Unit Testing ...\\"
+]"
+`;
+
+exports[`Subprocess Spawn Function Output 1`] = `
+"[
+    \\"Unit Testing ...\\"
+]"
+`;
+
+exports[`Subprocess Spawn Function Usage 1`] = `
+"[
+    \\"Unit Testing ...\\"
+]"
+`;

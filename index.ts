@@ -1,2 +1,5 @@
-export * from ".";
-export * from "./utilities";
+import Package from "./package.json";
+
+export * from "./src";
+
+export { Package };

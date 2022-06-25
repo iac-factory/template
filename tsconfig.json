@@ -4,7 +4,7 @@
     "ts-node": {
         "experimentalResolverFeatures": true,
         "preferTsExts": true,
-        "transpileOnly": true
+        "transpileOnly": true,
     },
     "compilerOptions": {
         "rootDir": ".",
@@ -15,6 +15,7 @@
         "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
+        "assumeChangesOnlyAffectDirectDependencies": true,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
         "noImplicitReturns": true,
@@ -32,6 +33,7 @@
         "strictNullChecks": true,
         "noErrorTruncation": true,
         "emitDecoratorMetadata": true,
+        "preserveWatchOutput": false,
         "experimentalDecorators": true,
         "declaration": true,
         "inlineSources": true,
@@ -40,5 +42,5 @@
         "diagnostics": true
     },
     "include": ["**/*.json", "**/*.ts", "./us-east-2-bundle.json"],
-    "exclude": ["ci", "coverage", "archive", "eslint-settings"]
+    "exclude": ["coverage"]
 }

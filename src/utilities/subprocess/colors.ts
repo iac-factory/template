@@ -1,5 +1,6 @@
 import ANSI   from "ansi-colors";
-import String from "./string";
+
+import { C } from "..";
 
 export module Color {
     export const { black } = ANSI;
@@ -13,7 +14,7 @@ export module Color {
     export const { gray } = ANSI;
     export const { grey } = ANSI;
 
-    export const { strip } = String;
+    export const { strip } = C;
 
     export module bright {
         export const { blackBright: black } = ANSI;
@@ -52,7 +53,7 @@ export module Modifiers {
     export const { hidden } = ANSI;
     export const { strikethrough } = ANSI;
 
-    export const { strip } = String;
+    export const { strip } = C;
 }
 
 export module Interface {
@@ -60,7 +61,8 @@ export module Interface {
     export const { visible } = ANSI;
 
     export const { create } = ANSI;
-    export const { strip } = String;
+
+    export const { strip } = C;
 }
 
 export default Color;

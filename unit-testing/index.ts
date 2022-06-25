@@ -1,5 +1,7 @@
 export * from "..";
 
+import Path from "path";
+
 /***
  * Debugging Hook
  * ---
@@ -11,9 +13,12 @@ export * from "..";
 export const closure = () => afterEach( () => {
     const state: import("Unit-Testing").State = expect.getState();
     console.debug( "[Debug] [Unit-Testing] [State]", {
-        Test: state.currentTestName,
-        Path: state.testPath,
-        Data: state.data
+        /*** Keep Testing Resolution more OOP */
+        test: state.currentTestName.replaceAll(" ", "."),
+        /*** Full System Path Cannot be Stateful */
+        path: Path.relative(process.cwd(), state.testPath),
+        /*** Optionally Set within Unit-Testing Context(s) */
+        data: state.data
     } );
 } );
 

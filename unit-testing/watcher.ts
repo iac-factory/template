@@ -1,3 +1,6 @@
+import { CLI } from "..";
+import { Spawn } from "..";
+
 import Chokidar from "chokidar";
 
 /**
@@ -17,71 +20,57 @@ import Chokidar from "chokidar";
  * @ignore
  * @private
  */
-// const Watcher = (pattern: string | string[], ignore: string[]) => {
-//     const instance = Chokidar.watch( pattern, {
-//         ignored: ignore,
-//         ignoreInitial: true
-//     } );
-//
-//     instance.on( "ready", async () => {
-//         if ( !globalFixtureContext ) {
-//             debug( "triggering global setup" );
-//             globalFixtureContext = await mocha.runGlobalSetup();
-//         }
-//         rerunner.run();
-//     } );
-//
-//     instance.on( "all", () => {
-//         rerunner.scheduleRun();
-//     } );
-//
-//     hideCursor();
-//     process.on( "exit", () => {
-//         showCursor();
-//     } );
-//
-//     //
-//     // win32/nt10/11 cannot gracefully shutdown via a signal from a parent process; a
-//     // `SIGINT` from a parent will cause the process to immediately exit. During normal
-//     // course of operation, a user will type Ctrl-C and the listener will be invoked; however,
-//     // such becomes an issue during automated testing.
-//     //
-//     // There may be other ways to solve the specific issue, but it too will be a hack.
-//     //
-//     // Fundamentally, Windows does not support such a "feature".
-//     //
-//
-//     if ( process.connected ) process.on( "message", (message) => {
-//         ( message === "SIGINT" ) && process.emit( "SIGINT" );
-//     } );
-//
-//
-//     process.on( "SIGINT", async () => {
-//         showCursor();
-//         console.error( `${ logSymbols.warning } [mocha] cleaning up, please wait...` );
-//         if ( !exiting ) {
-//             exiting = true;
-//             if ( mocha.hasGlobalTeardownFixtures() ) {
-//                 debug( "running global teardown" );
-//                 try {
-//                     await mocha.runGlobalTeardown( globalFixtureContext );
-//                 } catch ( err ) {
-//                     console.error( err );
-//                 }
-//             }
-//             process.exit( 130 );
-//         }
-//     } );
-//
-//     // Keyboard shortcut for restarting when "rs\n" is typed (ala Nodemon)
-//     process.stdin.resume();
-//     process.stdin.setEncoding( "utf8" );
-//     process.stdin.on( "data", data => {
-//         const str = data.toString().trim().toLowerCase();
-//         if ( str === "rs" ) rerunner.scheduleRun();
-//     } );
-//
-//     return watcher;
-// };
+const Watcher = async (pattern: string | string[], ignore: string[]) => {
+    await CLI.Handler();
 
-export {}
+    const instance = Chokidar.watch( pattern, {
+        ignored: ignore,
+        ignoreInitial: true
+    } );
+
+    instance.on( "ready", async () => {
+        console.log( "Ready" );
+    } );
+
+    instance.on( "all", async () => {
+        process.env["INIT_CWD"] && process.chdir(process.env["INIT_CWD"]);
+
+
+        await new Spawn( {
+            application: "tsc",
+            parameters: [ "--build", process.cwd() ],
+            prefix: "Watcher"
+        } );
+    } );
+
+    //
+    // win32/nt10/11 cannot gracefully shutdown via a signal from a parent process; a
+    // `SIGINT` from a parent will cause the process to immediately exit. During normal
+    // course of operation, a user will type Ctrl-C and the listener will be invoked; however,
+    // such becomes an issue during automated testing.
+    //
+    // There may be other ways to solve the specific issue, but it too will be a hack.
+    //
+    // Fundamentally, Windows does not support such a "feature".
+    //
+
+    if ( process.connected ) process.on( "message", (message) => {
+        ( message === "SIGINT" ) && process.emit( "SIGINT" );
+    } );
+
+    process.on( "SIGINT", async () => {
+        process.emit( "exit", 130 );
+    } );
+
+    process.stdin.resume();
+    /// process.stdin.setEncoding( "utf8" );
+    /// process.stdin.on( "data", (data: Buffer) => {
+    ///     const str = data.toString().trim().toLowerCase();
+    /// } );
+
+    return instance;
+};
+
+export {};
+
+/// ( async () => Watcher( ".", [] ) )();

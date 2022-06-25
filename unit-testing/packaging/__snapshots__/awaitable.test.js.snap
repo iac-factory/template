@@ -1,3 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`awaitable import 1`] = `"{}"`;
+exports[`Awaitable Import 1`] = `
+"{
+    \\"Package\\": \\"[Redacted]\\",
+    \\"CLI\\": {},
+    \\"TLS\\": {},
+    \\"Reader\\": {},
+    \\"C\\": {},
+    \\"Filters\\": {},
+    \\"Color\\": {
+        \\"bright\\": {},
+        \\"Names\\": {
+            \\"black\\": \\"black\\",
+            \\"red\\": \\"red\\",
+            \\"green\\": \\"green\\",
+            \\"yellow\\": \\"yellow\\",
+            \\"blue\\": \\"blue\\",
+            \\"magenta\\": \\"magenta\\",
+            \\"cyan\\": \\"cyan\\",
+            \\"white\\": \\"white\\",
+            \\"gray\\": \\"gray\\",
+            \\"grey\\": \\"grey\\"
+        }
+    },
+    \\"Modifiers\\": {},
+    \\"Interface\\": {
+        \\"enabled\\": true,
+        \\"visible\\": true
+    }
+}"
+`;

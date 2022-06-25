@@ -1,20 +1,12 @@
+import FS         from "fs";
 import Process    from "process";
 import Subprocess from "child_process";
-import Color      from "./colors";
 
-export type PWD = string | URL | undefined;
-/*** The Working Directory for the Spawn'd Process - Defaults via Invocation's CWD */
-export type CWD = string | URL | undefined | PWD;
-/*** The Spawn'd Process Environment Variables - Defaults via Runtime's Configuration */
-export type Environment = typeof process["env"];
-/*** Process Buffer + Stream Type - Defaults to `"pipe"` */
-export type IO = "pipe" | "ignore";
-/*** Detach Runtime from Spawn Process - Defaults to `false` */
-export type Detachment = false | boolean;
-/*** Process Timeout (Milliseconds) - Defaults to `Infinity` */
-export type Timeout = number;
-/*** Spawn an Interactive Subshell for Process - Defaults to `false` */
-export type Shell = false | boolean
+import { Filters } from ".";
+
+import { Color }   from ".";
+import { Options } from ".";
+import { Parameters } from ".";
 
 /***
  * Spawn Options
@@ -138,6 +130,10 @@ export const Spawn: Function["prototype"] & { new(options: Options, environment?
             subprocess.on( "message", (message?, handle?) => {
                 /// console.log( message, handle );
             } );
+
+            process.on("exit", () => {
+                subprocess.kill(0);
+            });
         } );
     };
 
@@ -154,76 +150,4 @@ export const Spawn: Function["prototype"] & { new(options: Options, environment?
     return command();
 };
 
-/**
- * Application Binary Interface
- * <br>
- * @example
- * "ls"
- *
- * @example
- * "node"
- */
-export type File = string;
-
-export type Parameters = string[]
-
-export type Construct = Function["prototype"];
-
-export type Options = {
-    /*** {@link File} */
-    readonly application: File;
-    /*** {@link Parameters} */
-    parameters?: Parameters;
-    /*** {@link Detachment} */
-    readonly detached?: Detachment;
-    /*** {@link CWD} */
-    readonly cwd?: CWD;
-    /*** {@link Environment} */
-    readonly env?: Environment;
-    /*** {@link Shell} */
-    readonly shell?: Shell;
-    /*** {@link IO} */
-    readonly stdio?: IO;
-    /*** {@link Timeout} */
-    readonly timeout?: Timeout;
-
-    readonly prefix?: string;
-    readonly color?: Color.Colors;
-}
-
-export const Filters = {
-    empty: function (input: Buffer | string[]) {
-        input = input.toString( "utf-8" ).trim().split( "\n" );
-        input = input.filter( (value, index, array) => {
-            return !( value.trim() === "" && ( array[ index + 1 ]?.trim() === "" || !!( array[ index + 1 ] ) ) );
-        } );
-
-        return input;
-    }
-} as const;
-
 export default Spawn;
-
-void ( async () => {
-    const debug = ( process.argv.includes( "--debug" ) && process.argv.includes( "--spawn" ) );
-
-    const test = async () => {
-        const Class = await new Spawn( {
-            application: "echo", parameters: [
-                "Hello World"
-            ], prefix: "Class"
-        } );
-
-        console.log( Class );
-
-        const Functional = await Spawn( {
-            application: "echo", parameters: [
-                "Hello World"
-            ], prefix: "Function"
-        } );
-
-        console.log(Functional);
-    };
-
-    ( debug ) && await test();
-} )();

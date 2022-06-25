@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`C-String-Module Export(s) 1`] = `
+Object {
+  "format": [Function],
+  "inspect": [Function],
+  "printf": [Function],
+  "strip": [Function],
+}
+`;

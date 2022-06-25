@@ -1,6 +1,6 @@
-import Utility from "util";
 import FS      from "fs";
 import Path    from "path";
+import Utility from "util";
 
 export const Copy = async (source: string, target: string, singleton: boolean = false, debug = false) => {
     const mkdir = Utility.promisify( FS.mkdir );

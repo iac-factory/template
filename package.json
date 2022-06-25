@@ -1,17 +1,18 @@
 {
-    "name": "ttt",
-    "version": "1.6.32",
-    "description": "ESLint Styling and Unit-Testing",
+    "name": "@iac-factory/template",
+    "version": "1.6.33",
+    "description": "GitHub Repository Template for TS + JEST Project(s)",
     "scripts": {
-        "build": "tsc --build tsconfig.json",
-        "lint": "npm run build && npx eslint .",
+        "lint": "tsc --build tsconfig.json && npx eslint .",
         "lint-fix": "npx eslint --fix .",
         "lint-debug": "npm run build && npx eslint --debug .",
-        "pretest": "npm run build",
-        "update-snapshots": "npm run build && node $(command -v jest) --config jest.config.js --injectGlobals --detectOpenHandles --update-snapshot",
+        "pretest": "tsc --build tsconfig.json",
         "prepublishOnly": "npm run test",
         "test": "node $(command -v jest) --config jest.config.js --injectGlobals --detectOpenHandles",
-        "ts-setup": "npx tsc --init"
+        "ts-setup": "npx tsc --init",
+        "ts-watch": "tsc --watch",
+        "test-watch": "node $(command -v jest) --config jest.config.js --injectGlobals --detectOpenHandles --watch",
+        "test-update": "tsc --build tsconfig.json && node $(command -v jest) --config jest.config.js --injectGlobals --detectOpenHandles --update-snapshot"
     },
     "license": "BSD-3-Clause",
     "author": {
@@ -25,15 +26,15 @@
     },
     "devDependencies": {
         "@iac-factory/eslint-settings": "^1.7.36",
-        "@jest/globals": "^28.1.0",
+        "@jest/globals": "^28.1.1",
         "@jest/types": "^28.1.0",
         "@types/jest": "^28.1.3",
         "@types/mocha": "^9.1.1",
-        "@types/node": "^17.0.40",
+        "@types/node": "^18.0.0",
         "ansi-colors": "^4.1.3",
         "chokidar": "^3.5.3",
         "jest": "^28.1.1",
-        "typescript": "^4.7.3"
+        "typescript": "^4.7.4"
     },
     "eslintConfig": {
         "extends": [

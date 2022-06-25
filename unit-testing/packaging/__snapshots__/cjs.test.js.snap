@@ -2,7 +2,12 @@
 
 exports[`CJS Import 1`] = `
 "{
-    \\"Cursor\\": {},
+    \\"Package\\": \\"[Redacted]\\",
+    \\"CLI\\": {},
+    \\"TLS\\": {},
+    \\"Reader\\": {},
+    \\"C\\": {},
+    \\"Filters\\": {},
     \\"Color\\": {
         \\"bright\\": {},
         \\"Names\\": {
@@ -22,8 +27,6 @@ exports[`CJS Import 1`] = `
     \\"Interface\\": {
         \\"enabled\\": true,
         \\"visible\\": true
-    },
-    \\"C\\": {},
-    \\"Filters\\": {}
+    }
 }"
 `;

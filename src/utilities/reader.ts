@@ -18,7 +18,7 @@ export module Reader {
         };
     }
 
-    export const read = (source: string, collection?: Descriptor[]) => {
+    export const scan = (source: string, collection?: Descriptor[]) => {
         const reference = (collection) ? collection : [];
 
         const descriptors = FS.readdirSync( source, { withFileTypes: true });
@@ -32,7 +32,7 @@ export module Reader {
 
             ( Directory ) && console.log( "[Debug] [Read] Directory", descriptor.name );
             ( Directory ) && reference.push( schema( source, descriptor ) );
-            ( Directory ) && read( Path.join( source, descriptor.name ), reference);
+            ( Directory ) && Reader.scan( Path.join( source, descriptor.name ), reference);
 
             ( Socket ) && console.log( "[Debug] [Read] Socket", descriptor.name );
             ( Socket ) && reference.push( schema( source, descriptor ) );
@@ -83,6 +83,10 @@ void ( async () => {
         const implementation = new Abstract();
 
         implementation.chain().chain().chain();
+
+        const reader = Reader.scan(Path.join(process.cwd(), ".."));
+
+        console.log(reader);
 
         return void null;
     };

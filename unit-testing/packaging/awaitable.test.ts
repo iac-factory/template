@@ -1,25 +1,28 @@
 import { initialize } from ".";
 
-describe( "awaitable", () => {
+describe( "Awaitable", () => {
     initialize();
 
-    it( "import", async () => {
-        expect.assertions(1);
+    it( "Import", async () => {
+        expect.assertions( 1 );
 
-        const main = import("..");
-        const snapshot = JSON.stringify(main, null, 4);
+        const main = await import("..");
+
+        /*** `package.json` is much too volatile to track statefully */
+        const partial = { ... main, ... { Package: "[Redacted]" } };
+
+        const snapshot = JSON.stringify( partial, null, 4);
         const result = "Successful";
 
         const state: import("Unit-Testing").State = {
             ... expect.getState(), ... {
-                data: { result, snapshot }
+                data: { result, partial }
             }
         };
 
-        await expect( main ).resolves.toBeTruthy().then(() => {
-            expect.setState( state );
+        expect( main ).toBeTruthy();
 
-            expect(snapshot).toMatchSnapshot();
-        });
+        expect.setState( state );
+        expect( snapshot ).toMatchSnapshot();
     } );
 } );

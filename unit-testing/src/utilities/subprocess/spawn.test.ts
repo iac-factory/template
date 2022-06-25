@@ -3,7 +3,7 @@ import { initialize } from ".";
 describe( "Subprocess", () => {
     initialize();
 
-    it( "Interface (Class) Usage", async () => {
+    it( "Spawn Class Usage", async () => {
         expect.assertions( 2 );
 
         const { Spawn } = await import("..");
@@ -28,7 +28,7 @@ describe( "Subprocess", () => {
         expect(snapshot).toMatchSnapshot();
     } );
 
-    it( "Callable (Function) Usage", async () => {
+    it( "Spawn Function Usage", async () => {
         expect.assertions( 2 );
 
         const { Spawn } = await import("..");
@@ -53,7 +53,7 @@ describe( "Subprocess", () => {
         expect(snapshot).toMatchSnapshot();
     } );
 
-    it( "Interface (Class) Output", async () => {
+    it( "Spawn Class Output", async () => {
         expect.assertions( 2 );
 
         const { Spawn } = await import("..");
@@ -78,7 +78,7 @@ describe( "Subprocess", () => {
         expect(snapshot).toMatchSnapshot();
     } );
 
-    it( "Callable (Function) Output", async () => {
+    it( "Spawn Function Output", async () => {
         expect.assertions( 2 );
 
         const { Spawn } = await import("..");
