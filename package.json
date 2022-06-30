@@ -2,7 +2,9 @@
     "name": "@iac-factory/template",
     "version": "1.6.33",
     "description": "GitHub Repository Template for TS + JEST Project(s)",
+    "main": "index.js",
     "scripts": {
+        "start": "tsc && ts-node .",
         "lint": "tsc --build tsconfig.json && npx eslint .",
         "lint-fix": "npx eslint --fix .",
         "lint-debug": "npm run build && npx eslint --debug .",
@@ -30,15 +32,25 @@
         "@jest/types": "^28.1.0",
         "@types/jest": "^28.1.3",
         "@types/mocha": "^9.1.1",
+        "@types/mysql": "^2.15.21",
         "@types/node": "^18.0.0",
+        "@types/pg": "^8.6.5",
         "ansi-colors": "^4.1.3",
-        "chokidar": "^3.5.3",
         "jest": "^28.1.1",
+        "swc": "^1.0.11",
         "typescript": "^4.7.4"
     },
     "eslintConfig": {
         "extends": [
             ".eslintrc.json"
         ]
+    },
+    "dependencies": {
+        "dotenv": "^16.0.1",
+        "mongodb": "^4.7.0",
+        "mongoose": "^6.4.1",
+        "mysql": "^2.18.1",
+        "pg": "^8.7.3",
+        "redis": "^4.1.0"
     }
 }

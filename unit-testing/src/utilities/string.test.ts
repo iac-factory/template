@@ -6,13 +6,13 @@ describe( "C-String-Module", () => {
     it( "Export(s)", async () => {
         expect.assertions( 1 );
 
-        const { C } = await import(".");
+        const { Strings } = await import(".");
 
-        const snapshot = C;
+        const snapshot = Strings;
 
         const state: import("Unit-Testing").State = {
             ... expect.getState(), ... {
-                data: { C }
+                data: { Strings }
             }
         };
 

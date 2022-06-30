@@ -2,6 +2,14 @@ import * as FS      from "fs";
 import * as Path    from "path";
 
 export module Reader {
+    /***
+     *
+     * @param {string} location
+     * @param {(FS.Stats & {name?: string}) | (FS.Dirent & {name?: string})} file
+     * @param {string} destination
+     * @return {Reader.Descriptor}
+     * @private
+     */
     function schema(location?: string, file?: ( FS.Stats | FS.Dirent ) & { name?: string }, destination?: string): Descriptor {
         const canonical = ( location || file ) ? Path.resolve( location!, file!.name! ) : Path.resolve( location! );
 
@@ -18,6 +26,16 @@ export module Reader {
         };
     }
 
+    /***
+     * Scan a Directory - Evaluate for Recursive Scanning, or Return a File
+     * Type according to Schema
+     *
+     * @see {@link schema}
+     *
+     * @param {string} source
+     * @param {Reader.Descriptor[]} collection
+     * @return {Reader.Descriptor[]}
+     */
     export const scan = (source: string, collection?: Descriptor[]) => {
         const reference = (collection) ? collection : [];
 
@@ -77,7 +95,7 @@ Abstract.prototype.chain = function () {
 
 void ( async () => {
     /*** $ node ${0} --debug */
-    const debug = ( process.argv.includes( "--debug" ) );
+    const debug = ( process.argv.includes( "--reader" ) );
 
     const test = async () => {
         const implementation = new Abstract();

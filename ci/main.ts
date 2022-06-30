@@ -1,8 +1,8 @@
-import * as OS                 from "os";
+import * as OS            from "os";
 import { TerraformStack } from "cdktf";
 
 import { Application } from "cdktf-factory";
-import { Output } from "cdktf-factory";
+import { Output }      from "cdktf-factory";
 
 import { DockerProvider, Container, DataDockerImage } from "@cdktf/provider-docker";
 
@@ -16,9 +16,9 @@ export class Implementation extends TerraformStack {
         } );
 
         /*** Locally Built - Requires System-Specific Preparation Prior to Deployment */
-        const image = new DataDockerImage(this, "docker-image", {
+        const image = new DataDockerImage( this, "docker-image", {
             name: "template"
-        });
+        } );
 
         /*** The Deployable Service */
         const container = new Container( this, "docker-container", {
@@ -28,7 +28,7 @@ export class Implementation extends TerraformStack {
             workingDir: "/usr/share/application",
             /*** Environment variables to set in the form of `KEY=VALUE`, e.g. `DEBUG=0` */
             env: [],
-            hostname: "iac-api.internal",
+            hostname: "local.internal",
             /*** IPC sharing mode for the container. Possible values are: `none`, `private`, `shareable`,` container:<name|id>` or `host`. */
             ipcMode: "host",
             logDriver: ( OS.platform() !== "darwin" ) ? "awslogs" : "local",
@@ -52,12 +52,13 @@ export class Implementation extends TerraformStack {
             privileged: false,
             /*** Upon Failure or Stop, Restart the Container - Note that AWS Fargate Disregards this Option */
             restart: "no",
+            /*** A Common Default run-command for `npm` packages */
             command: [ "node", "." ]
         } );
 
-        new Output(this, "container", {
+        new Output( this, "container", {
             value: container
-        });
+        } );
     }
 }
 
